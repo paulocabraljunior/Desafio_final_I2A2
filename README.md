@@ -18,4 +18,6 @@ Desenvolvimento de um conjunto de ferramentas para otimizar a tomada de decisão
 
 ## Arquitetura Preliminar
 
-(Diagrama de arquitetura a ser incluído aqui: Data Layer, Processing Layer, Presentation Layer)
+*   **Data Layer (Camada de Dados):** Responsável pela coleta e armazenamento de dados de diversas fontes, como bancos de dados internos, APIs de mercado e documentos. Garante a integridade e a disponibilidade dos dados.
+*   **Processing Layer (Camada de Processamento):** Onde os dados são transformados em insights. Utiliza algoritmos de análise preditiva e modelagem de negócios para processar os dados brutos.
+*   **Presentation Layer (Camada de Apresentação):** Interface com o usuário final. Apresenta os resultados das análises em dashboards interativos, relatórios e através do assistente consultor.
