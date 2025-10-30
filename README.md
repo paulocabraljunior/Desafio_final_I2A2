@@ -4,6 +4,21 @@
 
 Desenvolvimento de um conjunto de ferramentas para otimizar a tomada de decisão e a gestão estratégica, transformando dados brutos em inteligência acionável.
 
+## Como Executar a Aplicação
+
+Para executar a aplicação, siga os passos abaixo:
+
+1.  **Instale as dependências:**
+    ```bash
+    pip install -r requirements.txt
+    ```
+
+2.  **Execute a aplicação Streamlit:**
+    ```bash
+    streamlit run app.py
+    ```
+    A aplicação estará disponível em seu navegador no endereço `http://localhost:8501`.
+
 ## Pilares Principais (Core Features)
 
 *   **Relatórios Personalizados:** Geração de relatórios adaptados, combinando dados internos e externos.
