@@ -1,63 +1,37 @@
 # tests/test_agents.py
 
 import unittest
-from unittest.mock import MagicMock
-from src.agents.base_agent import BaseAgent
+from unittest.mock import patch, MagicMock
+import pandas as pd
+
+from src.agents.gemini_agent import GeminiAgent
+from src.agents.openai_agent import OpenAIAgent
+from src.agents.anthropic_agent import AnthropicAgent
 from src.assistant.assistant_agent import AssistantAgent
 from src.reports.report_agent import ReportAgent
 from src.predictive_analysis.prediction_agent import PredictionAgent
-import pandas as pd
 
-class MockBaseAgent(BaseAgent):
-    """
-    Mock do BaseAgent para testes.
-    """
-    def __init__(self, api_key="test_key"):
-        super().__init__(api_key)
-        self.response = "Mocked response"
-
-    def generate_response(self, prompt):
-        return self.response
-
-class TestSpecializedAgents(unittest.TestCase):
-    """
-    Testes para os agentes especializados.
-    """
-
-    def setUp(self):
-        """
-        Configura um mock do BaseAgent para cada teste.
-        """
-        self.mock_base_agent = MockBaseAgent()
-
+class TestAgents(unittest.TestCase):
     def test_assistant_agent(self):
-        """
-        Testa o AssistantAgent com o mock do BaseAgent.
-        """
-        self.mock_base_agent.response = "Resposta do assistente mockado."
-        assistant = AssistantAgent(self.mock_base_agent)
-        response = assistant.get_answer("Qualquer pergunta")
-        self.assertEqual(response, "Resposta do assistente mockado.")
+        mock_base_agent = MagicMock()
+        mock_base_agent.generate_response.return_value = "Mocked assistant response"
+        assistant_agent = AssistantAgent(mock_base_agent)
+        response = assistant_agent.get_answer("test query")
+        self.assertEqual(response, "Mocked assistant response")
 
     def test_report_agent(self):
-        """
-        Testa o ReportAgent com o mock do BaseAgent.
-        """
-        self.mock_base_agent.response = "Resumo do relatório mockado."
-        data = pd.DataFrame({'A': [1, 2], 'B': [3, 4]})
-        report_agent = ReportAgent(self.mock_base_agent, data)
-        response = report_agent.generate_report("Qualquer solicitação de relatório")
-        self.assertEqual(response, "Resumo do relatório mockado.")
+        mock_base_agent = MagicMock()
+        mock_base_agent.generate_response.return_value = "Mocked report response"
+        report_agent = ReportAgent(mock_base_agent, pd.DataFrame())
+        response = report_agent.generate_report("test query")
+        self.assertEqual(response, "Mocked report response")
 
     def test_prediction_agent(self):
-        """
-        Testa o PredictionAgent com o mock do BaseAgent.
-        """
-        self.mock_base_agent.response = "Previsão de vendas mockada."
-        data = pd.DataFrame({'Mês': ['Jan'], 'Vendas': [100]})
-        prediction_agent = PredictionAgent(self.mock_base_agent, data)
-        response = prediction_agent.make_prediction("Qualquer solicitação de previsão")
-        self.assertEqual(response, "Previsão de vendas mockada.")
+        mock_base_agent = MagicMock()
+        mock_base_agent.generate_response.return_value = "Mocked prediction response"
+        prediction_agent = PredictionAgent(mock_base_agent, pd.DataFrame())
+        response = prediction_agent.make_prediction("test query")
+        self.assertEqual(response, "Mocked prediction response")
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     unittest.main()
